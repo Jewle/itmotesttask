@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Panel</title>
+        <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}"  media="screen,projection"/>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    </head>
+    <body>
+        <h1>Authors <a href="/admin/create_author">  + </a>  </h1>
+        <div class="crud-table">
+            <table class="crud-table-content">
+                <thead>
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for author in authors %}
+                    <tr>
+                        <td>{{author.getFirstName()}}</td>
+                        <td>{{author.getLastName() }}</td>
+                        <td>{{author.getMiddleName() }}</td>
+                        <td class="crud-edit">
+                            <div class="crud-edit-control">
+                                <a href="/admin/aedit/{{author.id}}"
+                                   data-authorId="{{author.id}}"
+                                   data-role="editAuthor"
+                                   data-authorInfo="
+                                    {{author.getFirstName()}};
+                                    {{author.getLastName()}};
+                                    {{author.getMiddleName()}};
+                                    {{author.id}}"
+                                   class="control-item modal-trigger">
+                                    Редактировать
+                                </a>
+                                <a href="/admin/adelete/{{ author.id }}" class="control-item ">
+                                    Удалить
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <h1>Books <a  href="/admin/create_book">  + </a> </h1>
+        <div class="crud-table">
+            <table class="crud-table-content">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Год издания</th>
+                    <th>Кол-во страниц</th>
+                    <th>ISBN</th>
+                    <th>Авторы</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.bookTitle }}</td>
+                    <td>{{ book.bookPubYear }}</td>
+                    <td>{{ book.bookPages }}</td>
+                    <td>{{ book.bookIsbn }}</td>
+                    <td>
+                        <ul>
+                            {% for bookAuthor in book.getAuthors() %}
+                                <li>
+                                    <b>{{ bookAuthor.firstName }}</b>
+                                    {{ bookAuthor.lastName }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td class="crud-edit">
+                        <div class="crud-edit-control">
+                            <a href="/admin/edit_book/{{ book.id }}" class="control-item">
+                                Редактировать
+                            </a>
+                            <a href="/admin/delete_book/{{ book.id }}" class="control-item">
+                                Удалить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </body>
+    <script src="{{ asset('materialize/js/materialize.js') }}"></script>
+</html>

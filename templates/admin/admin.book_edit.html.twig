@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}"  media="screen,projection"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+
+<body>
+    <h4>{% if bookEdit %}
+            Редактировать
+            {% else %}
+            Создать
+        {% endif %} книгу
+    </h4>
+    <div class="container">
+        {{ form_start(form,{
+            attrs:{
+                'enctype':'multipart/form-data'
+            }
+        }) }}
+        {{ form_row(form._token) }}
+        <div class="errors">
+            {{ form_errors(form) }}
+        </div>
+        <div class="input-field col s12">
+            {{ form_row(form.bookTitle, {'attr':{
+                'class':'validate'
+            },
+                'label':'Название'
+            }) }}
+        </div>
+        <div class="input-field col s12">
+            {{ form_row(form.bookPubYear, {'attr':{
+                'class':'validate',
+                'type':'number'
+            },
+                'label':'Год публикации'
+            }) }}
+        </div>
+        <div class="input-field col s12">
+            {{ form_row(form.bookPages, {'attr':{
+                'class':'validate',
+                'type':'number'
+            },
+                'label':'Кол-во страниц'
+            }) }}
+        </div>
+        <div class="input-field col s12">
+            {{ form_row(form.bookIsbn, {'attr':{
+                'class':'validate',
+            },
+                'label':'ISBN'
+            }) }}
+        </div>
+        <div class="input-field col s12">
+            {{ form_row(form.bookImg, {'attr':{
+                'class':'validate',
+            },
+                'label':'Обложка'
+            }) }}
+        </div>
+        <button type="submit">Create</button>
+        {{ form_end(form) }}
+
+
+        {% if bookEdit %}
+            <a class="modal-trigger" href="#modal2"> Авторы </a>
+            <div id="modal2" class="modal">
+                <div class="modal-content">
+                   <div class="authors_attachment">
+                       <div class="input-field col s12">
+                           <select id="select_authors" multiple>
+                               {% for bookAuthor in bookAuthors %}
+                                   {% set isChecked = attachedAuthors.contains(bookAuthor) %}
+                                   <option {% if isChecked %} selected {% endif %} value="{{ bookAuthor.id }}">
+                                       {{bookAuthor.firstName}}
+                                       {{bookAuthor.lastName}}
+                                   </option>
+                               {% endfor %}
+                           </select>
+                           <p style="display: none" class="book_waiting">Ждите....</p>
+                        <button data-bookId="{{bookId}}" id="book_authors_confirm_btn">Подтвердить</button>
+                       </div>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Закрыть</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+
+</body>
+
+
+<script src="{{ asset('materialize/js/materialize.js') }}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
+</html>

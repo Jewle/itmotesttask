@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}"  media="screen,projection"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+
+
+<body>
+        <h4>Редактировать автора</h4>
+
+     <div class="container">
+         {{ form_start(form) }}
+         <div class="errors">
+            {{ form_errors(form) }}
+         </div>
+         {{ form_row(form._token) }}
+         <div class="input-field col s12">
+             {{ form_row(form.firstName, {'attr':{
+                 'class':'to-validate-name validate first-name',
+             },
+                 'label':'Имя'
+             }) }}
+         </div>
+
+         <div class="input-field col s12">
+             {{ form_row(form.lastName, {'attr':{
+                 'class':'to-validate-name validate last-name',
+             },
+                 'label':'Фамилия'
+             }) }}
+         </div>
+
+         <div class="input-field col s12">
+             {{ form_row(form.middleName, {'attr':{
+                 'class':'to-validate-name validate middle-name',
+             },
+                 'label':'Отчество'
+             }) }}
+         </div>
+         <button disabled class="create_author_button" type="submit">Create</button>
+         {{ form_end(form) }}
+     </div>
+
+</body>
+
+<script src="{{ asset('materialize/js/materialize.js') }}"></script>
+<script src="{{ asset('js/authors.js') }}"></script>
+</html>

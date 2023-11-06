@@ -1,0 +1,35 @@
+
+
+.crud-table{
+    max-width: 1000px;
+    text-align: center;
+    margin: auto;
+    border-collapse: collapse;
+}
+td{
+    /*padding: 30px;*/
+    border: 1px solid black;
+    text-align: center;
+    height: 70px;
+    overflow: auto;
+
+}
+.crud-table td ul{
+    height: 100%;
+    overflow: auto;
+}
+tr:nth-of-type(2n){
+    background: lightgray;
+}
+
+.crud-edit-control .control-item{
+    text-decoration: none;
+}
+
+.authors_attachment{
+    min-height: 200px;
+}
+
+h1 .a i {
+    padding: 20px;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+<h1>Books</h1>
+<a href="admin" class="admin-panel-link">Go to admin</a>
+<div class="books">
+    {% for book in books %}
+        <div class="book">
+            <img src="{{ imagepath ~ book.bookImg }}" alt="">
+        <p class="book-title">{{ book.bookTitle }}</p>
+        <p class="book-ISBN">{{ book.bookIsbn }}</p>
+        <p class="book-pages">{{ book.bookPages }}</p>
+        <p class="publication-year">{{ book.bookPubYear }}</p>
+        <b>Авторы</b>
+        <ul class="book-author">
+            {% for author in book.getAuthors()  %}
+
+               <li class="book-author-item">{{ author.firstName }} {{ author.lastName }}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
